@@ -7,177 +7,200 @@
     <meta name="description" content="网络安全运维与攻防演练专家 - 专注云安全、AI安全、Web3安全、等保合规">
     <title data-zh="网络安全运维 | wjqyg" data-en="Cybersecurity Ops | wjqyg">网络安全运维 | wjqyg</title>
     
-    <!-- 1. 修复Tailwind CSS加载方式（改用稳定的CSS CDN） -->
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/3.4.1/tailwind.min.css" rel="stylesheet">
-    <!-- 2. 引入自定义字体（解决字体不显示问题） -->
-    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS + 自定义配置 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
+    <!-- Tailwind 自定义配置（移除动画相关） -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        dark: '#0f172a', // 深蓝黑主背景
-                        primary: '#10b981', // 安全绿主色
-                        secondary: '#6366f1', // 靛蓝辅助色
-                        accent: '#ef4444', // 警示红点缀
-                        light: '#f1f5f9', // 高亮文本色
-                        grayLight: '#cbd5e1', // 浅灰文本
-                        grayDark: '#64748b'   // 深灰文本
+                        dark: '#0a0f1f',
+                        darker: '#050812',
+                        primary: '#16a34a', // 安全绿
+                        secondary: '#4f46e5', // 科技蓝
+                        accent: '#ef4444',    // 警示红
+                        light: '#f8fafc',
+                        grayLight: '#94a3b8',
+                        grayMid: '#64748b',
+                        grayDark: '#334155',
                     },
                     fontFamily: {
-                        sans: ['Inter', 'Roboto', 'system-ui', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace']
+                        inter: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     },
-                }
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(22, 163, 74, 0.3), 0 0 5px rgba(79, 70, 229, 0.2)',
+                        'card': '0 4px 20px rgba(0, 0, 0, 0.2)',
+                    }
+                },
             }
         }
     </script>
     
-    <!-- 自定义样式 -->
+    <!-- 自定义工具类（移除动画相关） -->
     <style type="text/tailwindcss">
         @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
             .text-gradient {
-                background-clip: text;
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
+                @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
             }
             .bg-glass {
-                backdrop-filter: blur(8px);
-                -webkit-backdrop-filter: blur(8px);
-                background-color: rgba(15, 23, 42, 0.8);
-            }
-            .animate-fade-in {
-                opacity: 0;
-                transform: translateY(20px);
-                transition: opacity 0.8s ease, transform 0.8s ease;
-            }
-            .fade-in-active {
-                opacity: 1;
-                transform: translateY(0);
+                @apply bg-dark/80 border border-grayDark/30;
             }
             .skill-bar {
-                height: 10px;
-                border-radius: 5px;
-                background-color: rgba(255,255,255,0.15);
-                overflow: hidden;
+                @apply h-2.5 rounded-full bg-grayDark/30 overflow-hidden;
             }
             .skill-progress {
-                height: 100%;
-                border-radius: 5px;
-                width: 0;
-                transition: width 1.2s ease-in-out;
+                @apply h-full rounded-full;
             }
-            .card-hover {
-                transition: all 0.5s ease;
-                border: 1px solid rgba(16, 185, 129, 0.1);
+            .section-padding {
+                @apply py-20 md:py-28;
             }
-            .card-hover:hover {
-                transform: translateY(-8px);
-                box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.2), 0 8px 10px -6px rgba(99, 102, 241, 0.2);
-            }
-            .lang-btn {
-                transition: all 0.3s ease;
-            }
-            .lang-btn.active {
-                background-color: rgba(16, 185, 129, 0.2);
-                color: #10b981;
-                border-color: #10b981;
+            .card-base {
+                @apply bg-dark/95 rounded-xl shadow-card border border-grayDark/20;
             }
         }
     </style>
-    <!-- 粒子背景库 -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <!-- 基础样式（移除动画相关） -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0f1f;
+            color: #f8fafc;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* 滚动条美化（保留静态样式） */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #050812;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #16a34a;
+        }
+    </style>
 </head>
-<body class="bg-dark text-light overflow-x-hidden font-sans">
-    <!-- 网络节点风格粒子背景 -->
-    <div id="particles-js" class="fixed top-0 left-0 w-full h-full z-[-1] opacity-60"></div>
+<body class="font-inter bg-dark text-light">
+    <!-- 移除粒子背景 -->
 
-    <!-- 导航栏 -->
-    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-500 py-4 bg-dark/95">
-        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
-            <a href="#home" class="text-2xl font-bold text-gradient bg-gradient-to-r from-primary to-secondary">
+    <!-- 导航栏（移除滚动动态效果） -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 py-4 bg-darker/90">
+        <div class="container mx-auto px-4 md:px-8 lg:px-12 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#home" class="text-2xl font-bold font-mono text-gradient">
                 Sec<span class="text-light">Ops</span>
             </a>
-            <!-- 中英文切换按钮 -->
-            <div class="flex items-center space-x-2 mr-4">
-                <button id="btn-zh" class="lang-btn active px-3 py-1 rounded-full border border-gray-600 text-light text-sm">中文</button>
-                <button id="btn-en" class="lang-btn px-3 py-1 rounded-full border border-gray-600 text-light text-sm">English</button>
+            
+            <!-- 语言切换（保留功能，移除hover动画） -->
+            <div class="flex items-center space-x-2 mr-2 md:mr-4">
+                <button id="btn-zh" class="lang-btn active px-3 py-1.5 rounded-full border border-primary text-sm bg-primary/10 text-primary">中文</button>
+                <button id="btn-en" class="lang-btn px-3 py-1.5 rounded-full border border-grayMid text-sm">English</button>
             </div>
-            <div class="hidden md:flex space-x-8">
-                <a href="#home" class="hover:text-primary transition-colors text-light" data-zh="首页" data-en="Home">首页</a>
-                <a href="#about" class="hover:text-primary transition-colors text-light" data-zh="关于我" data-en="About">关于我</a>
-                <a href="#focus" class="hover:text-primary transition-colors text-light" data-zh="工作方向" data-en="Focus">工作方向</a>
-                <a href="#cyberdrill" class="hover:text-primary transition-colors text-light" data-zh="攻防演练" data-en="Cyber Drill">攻防演练</a>
-                <a href="#projects" class="hover:text-primary transition-colors text-light" data-zh="安全项目" data-en="Projects">安全项目</a>
-                <a href="#skills" class="hover:text-primary transition-colors text-light" data-zh="技术栈" data-en="Skills">技术栈</a>
-                <a href="#contact" class="hover:text-primary transition-colors text-light" data-zh="联系我" data-en="Contact">联系我</a>
+            
+            <!-- 桌面端导航 -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="nav-link text-light text-sm md:text-base" data-zh="首页" data-en="Home">首页</a>
+                <a href="#about" class="nav-link text-light text-sm md:text-base" data-zh="关于我" data-en="About">关于我</a>
+                <a href="#focus" class="nav-link text-light text-sm md:text-base" data-zh="工作方向" data-en="Focus">工作方向</a>
+                <a href="#cyberdrill" class="nav-link text-light text-sm md:text-base" data-zh="攻防演练" data-en="Cyber Drill">攻防演练</a>
+                <a href="#projects" class="nav-link text-light text-sm md:text-base" data-zh="安全项目" data-en="Projects">安全项目</a>
+                <a href="#skills" class="nav-link text-light text-sm md:text-base" data-zh="技术栈" data-en="Skills">技术栈</a>
+                <a href="#contact" class="nav-link text-light text-sm md:text-base" data-zh="联系我" data-en="Contact">联系我</a>
             </div>
-            <!-- 修复图标标签语法错误 -->
-            <button id="menu-btn" class="md:hidden text-2xl text-primary">
-                <i class="fas fa-shield-alt"></i>
+            
+            <!-- 移动端菜单按钮 -->
+            <button id="menu-btn" class="md:hidden text-xl text-primary p-2">
+                <i class="fas fa-bars"></i>
             </button>
         </div>
-        <div id="mobile-menu" class="md:hidden hidden bg-dark/98 bg-glass absolute w-full py-4 px-6 border-b border-primary/10">
+        
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="md:hidden hidden bg-glass absolute w-full py-6 px-6 border-b border-primary/10">
             <div class="flex flex-col space-y-4">
-                <a href="#home" class="hover:text-primary transition-colors text-light" data-zh="首页" data-en="Home">首页</a>
-                <a href="#about" class="hover:text-primary transition-colors text-light" data-zh="关于我" data-en="About">关于我</a>
-                <a href="#focus" class="hover:text-primary transition-colors text-light" data-zh="工作方向" data-en="Focus">工作方向</a>
-                <a href="#cyberdrill" class="hover:text-primary transition-colors text-light" data-zh="攻防演练" data-en="Cyber Drill">攻防演练</a>
-                <a href="#projects" class="hover:text-primary transition-colors text-light" data-zh="安全项目" data-en="Projects">安全项目</a>
-                <a href="#skills" class="hover:text-primary transition-colors text-light" data-zh="技术栈" data-en="Skills">技术栈</a>
-                <a href="#contact" class="hover:text-primary transition-colors text-light" data-zh="联系我" data-en="Contact">联系我</a>
+                <a href="#home" class="nav-link text-light py-2" data-zh="首页" data-en="Home">首页</a>
+                <a href="#about" class="nav-link text-light py-2" data-zh="关于我" data-en="About">关于我</a>
+                <a href="#focus" class="nav-link text-light py-2" data-zh="工作方向" data-en="Focus">工作方向</a>
+                <a href="#cyberdrill" class="nav-link text-light py-2" data-zh="攻防演练" data-en="Cyber Drill">攻防演练</a>
+                <a href="#projects" class="nav-link text-light py-2" data-zh="安全项目" data-en="Projects">安全项目</a>
+                <a href="#skills" class="nav-link text-light py-2" data-zh="技术栈" data-en="Skills">技术栈</a>
+                <a href="#contact" class="nav-link text-light py-2" data-zh="联系我" data-en="Contact">联系我</a>
             </div>
         </div>
     </nav>
 
-    <!-- 英雄区 -->
-    <section id="home" class="min-h-screen flex items-center justify-center relative z-10 pt-16">
-        <div class="container mx-auto px-6 md:px-12 text-center">
-            <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-bold leading-tight animate-fade-in fade-in-active">
+    <!-- 英雄区（移除动画） -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative z-10 pt-20">
+        <div class="container mx-auto px-4 md:px-8 lg:px-12 text-center">
+            <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-bold leading-tight">
                 <span data-zh="网络安全" data-en="Cybersecurity">网络安全</span> 
-                <span class="text-gradient bg-gradient-to-r from-primary to-secondary" data-zh="运维与攻防" data-en="Ops & Cyber Drill">运维与攻防</span>
+                <span class="text-gradient" data-zh="运维与攻防" data-en="Ops & Cyber Drill">运维与攻防</span>
             </h1>
-            <p class="text-[clamp(1.2rem,3vw,1.8rem)] text-grayLight mt-6 max-w-3xl mx-auto animate-fade-in fade-in-active" 
+            <p class="text-[clamp(1rem,3vw,1.3rem)] text-grayLight mt-8 max-w-3xl mx-auto"
                data-zh="专注云安全、AI安全、Web3安全、等保合规，提供安全建设与运维全流程解决方案"
                data-en="Focus on Cloud Security, AI Security, Web3 Security, Level-3 Security Compliance, providing full-cycle security construction and operation solutions">
                 专注云安全、AI安全、Web3安全、等保合规，提供安全建设与运维全流程解决方案
             </p>
-            <div class="mt-10 flex flex-col sm:flex-row justify-center gap-6 animate-fade-in fade-in-active">
-                <a href="#projects" class="px-8 py-3 bg-primary hover:bg-primary/90 rounded-full font-medium transition-all transform hover:scale-105 shadow-lg shadow-primary/30 text-dark font-semibold"
+            <div class="mt-12 flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
+                <a href="#projects" class="px-8 py-3 bg-primary rounded-full font-medium text-dark font-semibold"
                    data-zh="查看安全项目" data-en="View Security Projects">
                     查看安全项目
                 </a>
-                <a href="#contact" class="px-8 py-3 bg-transparent border border-primary/80 hover:border-primary rounded-full font-medium transition-all transform hover:scale-105 text-light"
+                <a href="#contact" class="px-8 py-3 bg-transparent border border-primary/80 rounded-full font-medium"
                    data-zh="联系合作" data-en="Contact for Cooperation">
                     联系合作
                 </a>
             </div>
-            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce animate-fade-in fade-in-active">
-                <a href="#about" class="text-primary/80 hover:text-primary">
-                    <i class="fas fa-chevron-down text-2xl"></i>
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2">
+                <a href="#about" class="text-primary/80">
+                    <i class="fas fa-chevron-down text-xl"></i>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- 关于我 -->
-    <section id="about" class="py-20 relative z-10">
-        <div class="container mx-auto px-6 md:px-12">
-            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-center mb-16 animate-fade-in">
+    <!-- 关于我（移除动画） -->
+    <section id="about" class="section-padding relative z-10">
+        <div class="container mx-auto px-4 md:px-8 lg:px-12">
+            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-center mb-16">
                 <span data-zh="关于" data-en="About">关于</span> 
-                <span class="text-gradient bg-gradient-to-r from-primary to-secondary" data-zh="我" data-en="Me">我</span>
+                <span class="text-gradient" data-zh="我" data-en="Me">我</span>
             </h2>
             <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="animate-fade-in">
-                    <div class="relative w-64 h-64 mx-auto md:mx-0 rounded-full overflow-hidden border-4 border-primary/40 shadow-lg shadow-primary/20">
+                <!-- 头像 -->
+                <div>
+                    <div class="relative w-64 h-64 mx-auto md:mx-0 rounded-full overflow-hidden border-4 border-primary/30">
                         <img src="https://picsum.photos/seed/sec/400/400" alt="网络安全工程师头像" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 mix-blend-overlay"></div>
                     </div>
                 </div>
-                <div class="animate-fade-in">
-                    <h3 class="text-2xl font-semibold mb-4 text-light" data-zh="网络安全运维工程师" data-en="Cybersecurity Operations Engineer">网络安全运维工程师</h3>
+                
+                <!-- 介绍文字 -->
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-light" data-zh="网络安全运维工程师" data-en="Cybersecurity Operations Engineer">网络安全运维工程师</h3>
                     <p class="text-grayLight mb-6 leading-relaxed"
                        data-zh="深耕网络安全领域多年，聚焦攻防演练、云安全、IDC安全、AI安全及Web3安全等核心方向，具备等保三级合规建设与落地经验，擅长安全体系搭建、风险评估、漏洞挖掘与应急响应，致力于为业务提供全方位安全防护解决方案。"
                        data-en="With years of experience in the cybersecurity field, focusing on core areas such as cyber drills, cloud security, IDC security, AI security, and Web3 security. Possessing experience in Level-3 security compliance construction and implementation, proficient in security system building, risk assessment, vulnerability mining, and incident response, committed to providing comprehensive security protection solutions for businesses.">
@@ -192,13 +215,13 @@
                         持续跟进前沿安全技术动态，不断提升安全防护与攻防对抗能力。
                     </p>
                     <div class="flex space-x-6 text-2xl">
-                        <a href="https://github.com/wjqyg" target="_blank" class="text-primary/80 hover:text-primary transition-colors" title="GitHub">
+                        <a href="https://github.com/wjqyg" target="_blank" class="text-primary/80" title="GitHub">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="mailto:6760088662@qq.com" class="text-primary/80 hover:text-primary transition-colors" title="Email">
+                        <a href="mailto:6760088662@qq.com" class="text-primary/80" title="Email">
                             <i class="fas fa-envelope"></i>
                         </a>
-                        <a href="#" target="_blank" class="text-primary/80 hover:text-primary transition-colors" title="Website">
+                        <a href="#" target="_blank" class="text-primary/80" title="Website">
                             <i class="fas fa-link"></i>
                         </a>
                     </div>
@@ -207,17 +230,17 @@
         </div>
     </section>
 
-    <!-- 工作方向 -->
-    <section id="focus" class="py-20 relative z-10 bg-dark/80">
-        <div class="container mx-auto px-6 md:px-12">
-            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-center mb-16 animate-fade-in">
+    <!-- 工作方向（移除动画） -->
+    <section id="focus" class="section-padding relative z-10 bg-darker/80">
+        <div class="container mx-auto px-4 md:px-8 lg:px-12">
+            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-center mb-16">
                 <span data-zh="核心" data-en="Core">核心</span> 
-                <span class="text-gradient bg-gradient-to-r from-primary to-secondary" data-zh="工作方向" data-en="Focus Areas">工作方向</span>
+                <span class="text-gradient" data-zh="工作方向" data-en="Focus Areas">工作方向</span>
             </h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
                 <!-- 方向1 -->
-                <div class="bg-dark/90 rounded-xl p-6 card-hover animate-fade-in">
-                    <div class="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+                <div class="card-base p-6">
+                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-5">
                         <i class="fas fa-network-wired text-2xl text-primary"></i>
                     </div>
                     <h3 class="text-lg font-semibold mb-3 text-light" data-zh="网络安全运维" data-en="Network Security Ops">网络安全运维</h3>
@@ -227,9 +250,10 @@
                         安全设备运维、网络边界防护、日志分析与监控、安全策略优化
                     </p>
                 </div>
+                
                 <!-- 方向2 -->
-                <div class="bg-dark/90 rounded-xl p-6 card-hover animate-fade-in">
-                    <div class="w-14 h-14 rounded-full bg-secondary/20 flex items-center justify-center mb-4">
+                <div class="card-base p-6">
+                    <div class="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center mb-5">
                         <i class="fas fa-crosshairs text-2xl text-secondary"></i>
                     </div>
                     <h3 class="text-lg font-semibold mb-3 text-light" data-zh="攻防演练" data-en="Cyber Drill">攻防演练</h3>
@@ -239,9 +263,10 @@
                         红队渗透测试、蓝队防御加固、应急响应、漏洞挖掘与修复
                     </p>
                 </div>
+                
                 <!-- 方向3 -->
-                <div class="bg-dark/90 rounded-xl p-6 card-hover animate-fade-in">
-                    <div class="w-14 h-14 rounded-full bg-accent/20 flex items-center justify-center mb-4">
+                <div class="card-base p-6">
+                    <div class="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center mb-5">
                         <i class="fas fa-cloud text-2xl text-accent"></i>
                     </div>
                     <h3 class="text-lg font-semibold mb-3 text-light" data-zh="云安全 & IDC安全" data-en="Cloud & IDC Security">云安全 & IDC安全</h3>
@@ -251,9 +276,10 @@
                         云平台安全配置、容器安全、IDC机房安全防护、数据中心安全运维
                     </p>
                 </div>
+                
                 <!-- 方向4 -->
-                <div class="bg-dark/90 rounded-xl p-6 card-hover animate-fade-in">
-                    <div class="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+                <div class="card-base p-6">
+                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-5">
                         <i class="fas fa-brain text-2xl text-primary"></i>
                     </div>
                     <h3 class="text-lg font-semibold mb-3 text-light" data-zh="AI安全" data-en="AI Security">AI安全</h3>
@@ -263,9 +289,10 @@
                         AI模型安全、数据隐私保护、对抗样本检测、AI系统安全评估
                     </p>
                 </div>
+                
                 <!-- 方向5 -->
-                <div class="bg-dark/90 rounded-xl p-6 card-hover animate-fade-in">
-                    <div class="w-14 h-14 rounded-full bg-secondary/20 flex items-center justify-center mb-4">
+                <div class="card-base p-6">
+                    <div class="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center mb-5">
                         <i class="fas fa-certificate text-2xl text-secondary"></i>
                     </div>
                     <h3 class="text-lg font-semibold mb-3 text-light" data-zh="等保三级" data-en="Level-3 Security Compliance">等保三级</h3>
@@ -275,9 +302,10 @@
                         等保合规咨询、安全整改、文档编制、测评落地全流程服务
                     </p>
                 </div>
+                
                 <!-- 方向6 -->
-                <div class="bg-dark/90 rounded-xl p-6 card-hover animate-fade-in">
-                    <div class="w-14 h-14 rounded-full bg-accent/20 flex items-center justify-center mb-4">
+                <div class="card-base p-6">
+                    <div class="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center mb-5">
                         <i class="fas fa-cubes text-2xl text-accent"></i>
                     </div>
                     <h3 class="text-lg font-semibold mb-3 text-light" data-zh="Web3安全" data-en="Web3 Security">Web3安全</h3>
@@ -287,9 +315,10 @@
                         区块链安全、智能合约审计、DeFi安全评估、Web3应用渗透测试
                     </p>
                 </div>
+                
                 <!-- 方向7 -->
-                <div class="bg-dark/90 rounded-xl p-6 card-hover animate-fade-in">
-                    <div class="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+                <div class="card-base p-6">
+                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-5">
                         <i class="fas fa-building-shield text-2xl text-primary"></i>
                     </div>
                     <h3 class="text-lg font-semibold mb-3 text-light" data-zh="安全建设与运维" data-en="Security Construction & Ops">安全建设与运维</h3>
@@ -303,31 +332,31 @@
         </div>
     </section>
 
-    <!-- 攻防演练案例板块 -->
-    <section id="cyberdrill" class="py-20 relative z-10">
-        <div class="container mx-auto px-6 md:px-12">
-            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-center mb-16 animate-fade-in">
+    <!-- 攻防演练案例（移除动画） -->
+    <section id="cyberdrill" class="section-padding relative z-10">
+        <div class="container mx-auto px-4 md:px-8 lg:px-12">
+            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-center mb-16">
                 <span data-zh="攻防演练" data-en="Cyber Drill">攻防演练</span> 
-                <span class="text-gradient bg-gradient-to-r from-primary to-secondary" data-zh="实战案例" data-en="Real Cases">实战案例</span>
+                <span class="text-gradient" data-zh="实战案例" data-en="Real Cases">实战案例</span>
             </h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                <!-- 案例1：企业内网攻防演练 -->
-                <div class="bg-dark/90 rounded-xl overflow-hidden shadow-lg card-hover animate-fade-in border-l-4 border-accent">
+                <!-- 案例1 -->
+                <div class="card-base overflow-hidden border-l-4 border-accent">
                     <div class="h-48 overflow-hidden">
-                        <img src="https://picsum.photos/seed/intranet/600/400" alt="企业内网攻防演练" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        <img src="https://picsum.photos/seed/intranet/600/400" alt="企业内网攻防演练" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
-                        <div class="flex items-center mb-3">
-                            <span class="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full mr-2" data-zh="红队视角" data-en="Red Team">红队视角</span>
-                            <span class="px-3 py-1 bg-gray-700 text-grayLight text-xs rounded-full" data-zh="30人·14天" data-en="30 People · 14 Days">30人·14天</span>
+                        <div class="flex items-center mb-4">
+                            <span class="px-3 py-1 bg-accent/10 text-accent text-xs rounded-full mr-2" data-zh="红队视角" data-en="Red Team">红队视角</span>
+                            <span class="px-3 py-1 bg-grayDark/50 text-grayLight text-xs rounded-full" data-zh="30人·14天" data-en="30 People · 14 Days">30人·14天</span>
                         </div>
-                        <h3 class="text-xl font-semibold mb-2 text-light" data-zh="大型企业内网攻防演练" data-en="Large Enterprise Intranet Cyber Drill">大型企业内网攻防演练</h3>
-                        <p class="text-grayLight mb-4 text-sm"
+                        <h3 class="text-xl font-semibold mb-3 text-light" data-zh="大型企业内网攻防演练" data-en="Large Enterprise Intranet Cyber Drill">大型企业内网攻防演练</h3>
+                        <p class="text-grayLight mb-5 text-sm"
                            data-zh="为某集团型企业提供全流程攻防演练服务，模拟真实黑客攻击路径，完成从外网打点到内网横向移动、核心数据获取的全链路渗透。"
                            data-en="Provided full-cycle cyber drill services for a group enterprise, simulating real hacker attack paths, completing end-to-end penetration from external network reconnaissance to internal network lateral movement and core data acquisition.">
                             为某集团型企业提供全流程攻防演练服务，模拟真实黑客攻击路径，完成从外网打点到内网横向移动、核心数据获取的全链路渗透。
                         </p>
-                        <div class="space-y-2 mb-4">
+                        <div class="space-y-2 mb-5">
                             <div class="flex items-center text-sm">
                                 <i class="fas fa-check text-primary mr-2"></i>
                                 <span class="text-grayLight" data-zh="发现高危漏洞12个，中危漏洞28个" data-en="Discovered 12 critical vulnerabilities, 28 medium vulnerabilities">发现高危漏洞12个，中危漏洞28个</span>
@@ -342,30 +371,30 @@
                             </div>
                         </div>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-2 py-1 bg-gray-700 text-grayLight text-xs rounded-full">Metasploit</span>
-                            <span class="px-2 py-1 bg-gray-700 text-grayLight text-xs rounded-full">Cobalt Strike</span>
-                            <span class="px-2 py-1 bg-gray-700 text-grayLight text-xs rounded-full">内网渗透</span>
+                            <span class="px-2 py-1 bg-grayDark/50 text-grayLight text-xs rounded-full">Metasploit</span>
+                            <span class="px-2 py-1 bg-grayDark/50 text-grayLight text-xs rounded-full">Cobalt Strike</span>
+                            <span class="px-2 py-1 bg-grayDark/50 text-grayLight text-xs rounded-full">内网渗透</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- 案例2：云平台安全攻防 -->
-                <div class="bg-dark/90 rounded-xl overflow-hidden shadow-lg card-hover animate-fade-in border-l-4 border-secondary">
+                <!-- 案例2 -->
+                <div class="card-base overflow-hidden border-l-4 border-secondary">
                     <div class="h-48 overflow-hidden">
-                        <img src="https://picsum.photos/seed/cloudcyber/600/400" alt="云平台安全攻防" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        <img src="https://picsum.photos/seed/cloudcyber/600/400" alt="云平台安全攻防" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
-                        <div class="flex items-center mb-3">
-                            <span class="px-3 py-1 bg-secondary/20 text-secondary text-xs rounded-full mr-2" data-zh="红蓝对抗" data-en="Red vs Blue">红蓝对抗</span>
-                            <span class="px-3 py-1 bg-gray-700 text-grayLight text-xs rounded-full" data-zh="20人·7天" data-en="20 People · 7 Days">20人·7天</span>
+                        <div class="flex items-center mb-4">
+                            <span class="px-3 py-1 bg-secondary/10 text-secondary text-xs rounded-full mr-2" data-zh="红蓝对抗" data-en="Red vs Blue">红蓝对抗</span>
+                            <span class="px-3 py-1 bg-grayDark/50 text-grayLight text-xs rounded-full" data-zh="20人·7天" data-en="20 People · 7 Days">20人·7天</span>
                         </div>
-                        <h3 class="text-xl font-semibold mb-2 text-light" data-zh="云平台安全攻防对抗" data-en="Cloud Platform Cyber Competition">云平台安全攻防对抗</h3>
-                        <p class="text-grayLight mb-4 text-sm"
+                        <h3 class="text-xl font-semibold mb-3 text-light" data-zh="云平台安全攻防对抗" data-en="Cloud Platform Cyber Competition">云平台安全攻防对抗</h3>
+                        <p class="text-grayLight mb-5 text-sm"
                            data-zh="针对某互联网企业阿里云/腾讯云混合架构，开展红蓝对抗演练，红队模拟攻击云资源，蓝队实时防御并溯源攻击路径。"
                            data-en="Conducted Red vs Blue competition for an Internet enterprise's mixed Alibaba Cloud/Tencent Cloud architecture. Red Team simulated attacks on cloud resources, Blue Team performed real-time defense and attack source tracing.">
                             针对某互联网企业阿里云/腾讯云混合架构，开展红蓝对抗演练，红队模拟攻击云资源，蓝队实时防御并溯源攻击路径。
                         </p>
-                        <div class="space-y-2 mb-4">
+                        <div class="space-y-2 mb-5">
                             <div class="flex items-center text-sm">
                                 <i class="fas fa-check text-primary mr-2"></i>
                                 <span class="text-grayLight" data-zh="发现云配置漏洞8个（含2个高危）" data-en="Discovered 8 cloud configuration vulnerabilities (including 2 critical)">发现云配置漏洞8个（含2个高危）</span>
@@ -380,30 +409,30 @@
                             </div>
                         </div>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-2 py-1 bg-gray-700 text-grayLight text-xs rounded-full">云安全配置</span>
-                            <span class="px-2 py-1 bg-gray-700 text-grayLight text-xs rounded-full">WAF</span>
-                            <span class="px-2 py-1 bg-gray-700 text-grayLight text-xs rounded-full">日志分析</span>
+                            <span class="px-2 py-1 bg-grayDark/50 text-grayLight text-xs rounded-full">云安全配置</span>
+                            <span class="px-2 py-1 bg-grayDark/50 text-grayLight text-xs rounded-full">WAF</span>
+                            <span class="px-2 py-1 bg-grayDark/50 text-grayLight text-xs rounded-full">日志分析</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- 案例3：Web3智能合约安全审计 -->
-                <div class="bg-dark/90 rounded-xl overflow-hidden shadow-lg card-hover animate-fade-in border-l-4 border-primary">
+                <!-- 案例3 -->
+                <div class="card-base overflow-hidden border-l-4 border-primary">
                     <div class="h-48 overflow-hidden">
-                        <img src="https://picsum.photos/seed/web3cyber/600/400" alt="Web3智能合约安全审计" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        <img src="https://picsum.photos/seed/web3cyber/600/400" alt="Web3智能合约安全审计" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
-                        <div class="flex items-center mb-3">
-                            <span class="px-3 py-1 bg-primary/20 text-primary text-xs rounded-full mr-2" data-zh="安全审计" data-en="Security Audit">安全审计</span>
-                            <span class="px-3 py-1 bg-gray-700 text-grayLight text-xs rounded-full" data-zh="5人·10天" data-en="5 People · 10 Days">5人·10天</span>
+                        <div class="flex items-center mb-4">
+                            <span class="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full mr-2" data-zh="安全审计" data-en="Security Audit">安全审计</span>
+                            <span class="px-3 py-1 bg-grayDark/50 text-grayLight text-xs rounded-full" data-zh="5人·10天" data-en="5 People · 10 Days">5人·10天</span>
                         </div>
-                        <h3 class="text-xl font-semibold mb-2 text-light" data-zh="Web3智能合约安全审计" data-en="Web3 Smart Contract Security Audit">Web3智能合约安全审计</h3>
-                        <p class="text-grayLight mb-4 text-sm"
+                        <h3 class="text-xl font-semibold mb-3 text-light" data-zh="Web3智能合约安全审计" data-en="Web3 Smart Contract Security Audit">Web3智能合约安全审计</h3>
+                        <p class="text-grayLight mb-5 text-sm"
                            data-zh="为某DeFi项目提供智能合约安全审计服务，通过静态分析、动态测试、形式化验证等方式，发现合约潜在安全风险。"
                            data-en="Provided smart contract security audit services for a DeFi project, discovering potential security risks through static analysis, dynamic testing, and formal verification.">
                             为某DeFi项目提供智能合约安全审计服务，通过静态分析、动态测试、形式化验证等方式，发现合约潜在安全风险。
                         </p>
-                        <div class="space-y-2 mb-4">
+                        <div class="space-y-2 mb-5">
                             <div class="flex items-center text-sm">
                                 <i class="fas fa-check text-primary mr-2"></i>
                                 <span class="text-grayLight" data-zh="发现重入攻击、整数溢出等漏洞6个" data-en="Discovered 6 vulnerabilities (reentrancy, integer overflow, etc.)">发现重入攻击、整数溢出等漏洞6个</span>
@@ -418,9 +447,9 @@
                             </div>
                         </div>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-2 py-1 bg-gray-700 text-grayLight text-xs rounded-full">Solidity</span>
-                            <span class="px-2 py-1 bg-gray-700 text-grayLight text-xs rounded-full">Remix</span>
-                            <span class="px-2 py-1 bg-gray-700 text-grayLight text-xs rounded-full">智能合约审计</span>
+                            <span class="px-2 py-1 bg-grayDark/50 text-grayLight text-xs rounded-full">Solidity</span>
+                            <span class="px-2 py-1 bg-grayDark/50 text-grayLight text-xs rounded-full">Remix</span>
+                            <span class="px-2 py-1 bg-grayDark/50 text-grayLight text-xs rounded-full">智能合约审计</span>
                         </div>
                     </div>
                 </div>
@@ -428,30 +457,30 @@
         </div>
     </section>
 
-    <!-- 安全项目 -->
-    <section id="projects" class="py-20 relative z-10">
-        <div class="container mx-auto px-6 md:px-12">
-            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-center mb-16 animate-fade-in">
+    <!-- 安全项目（移除动画） -->
+    <section id="projects" class="section-padding relative z-10 bg-darker/80">
+        <div class="container mx-auto px-4 md:px-8 lg:px-12">
+            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-center mb-16">
                 <span data-zh="安全" data-en="Security">安全</span> 
-                <span class="text-gradient bg-gradient-to-r from-primary to-secondary" data-zh="项目" data-en="Projects">项目</span>
+                <span class="text-gradient" data-zh="项目" data-en="Projects">项目</span>
             </h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- 项目1：口令爆破字典 -->
-                <div class="bg-dark/90 rounded-xl overflow-hidden shadow-lg card-hover animate-fade-in">
+                <!-- 项目1 -->
+                <div class="card-base overflow-hidden">
                     <div class="h-48 overflow-hidden">
-                        <img src="https://picsum.photos/seed/dict/600/400" alt="口令爆破字典项目" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        <img src="https://picsum.photos/seed/dict/600/400" alt="口令爆破字典项目" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
-                        <div class="flex items-center mb-2">
-                            <span class="px-3 py-1 bg-primary/20 text-primary text-xs rounded-full" data-zh="开源工具" data-en="Open-Source Tool">开源工具</span>
+                        <div class="flex items-center mb-3">
+                            <span class="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full" data-zh="开源工具" data-en="Open-Source Tool">开源工具</span>
                         </div>
-                        <h3 class="text-xl font-semibold mb-2 text-light" data-zh="多功能口令爆破字典集" data-en="Multi-Functional Password Brute-force Dictionary">多功能口令爆破字典集</h3>
-                        <p class="text-grayLight mb-4 text-sm"
+                        <h3 class="text-xl font-semibold mb-3 text-light" data-zh="多功能口令爆破字典集" data-en="Multi-Functional Password Brute-force Dictionary">多功能口令爆破字典集</h3>
+                        <p class="text-grayLight mb-5 text-sm"
                            data-zh="整合8类高频使用的口令字典，包含键盘组合、拼音、手机号、生日、弱口令、行业专用等类型，支持自定义组合生成，适用于渗透测试、安全评估等场景。"
                            data-en="Integrated 8 types of high-frequency password dictionaries, including keyboard combinations, Pinyin, phone numbers, birthdays, weak passwords, industry-specific passwords, etc. Supports custom combination generation, suitable for penetration testing and security assessment.">
                             整合8类高频使用的口令字典，包含键盘组合、拼音、手机号、生日、弱口令、行业专用等类型，支持自定义组合生成，适用于渗透测试、安全评估等场景。
                         </p>
-                        <div class="space-y-2 mb-4">
+                        <div class="space-y-2 mb-5">
                             <div class="flex items-center text-sm">
                                 <i class="fas fa-check text-primary mr-2"></i>
                                 <span class="text-grayLight" data-zh="字典总量超1000万条" data-en="Total 10M+ password entries">字典总量超1000万条</span>
@@ -465,38 +494,38 @@
                                 <span class="text-grayLight" data-zh="定期更新高频弱口令" data-en="Regularly updated with high-frequency weak passwords">定期更新高频弱口令</span>
                             </div>
                         </div>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-primary/20 text-primary text-xs rounded-full">Python</span>
-                            <span class="px-3 py-1 bg-secondary/20 text-secondary text-xs rounded-full">安全测试</span>
-                            <span class="px-3 py-1 bg-gray-700 text-grayLight text-xs rounded-full">渗透测试</span>
+                        <div class="flex flex-wrap gap-2 mb-5">
+                            <span class="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">Python</span>
+                            <span class="px-3 py-1 bg-secondary/10 text-secondary text-xs rounded-full">安全测试</span>
+                            <span class="px-3 py-1 bg-grayDark/50 text-grayLight text-xs rounded-full">渗透测试</span>
                         </div>
                         <div class="flex justify-between">
-                            <a href="https://github.com/wjqyg/password_brute_dictionary" target="_blank" class="text-primary hover:text-primary/80 transition-colors text-sm">
+                            <a href="https://github.com/wjqyg/password_brute_dictionary" target="_blank" class="text-primary text-sm flex items-center">
                                 <i class="fab fa-github mr-1"></i> <span data-zh="源码" data-en="Source Code">源码</span>
                             </a>
-                            <a href="https://github.com/wjqyg/password_brute_dictionary" target="_blank" class="text-secondary hover:text-secondary/80 transition-colors text-sm">
+                            <a href="https://github.com/wjqyg/password_brute_dictionary" target="_blank" class="text-secondary text-sm flex items-center">
                                 <span data-zh="下载" data-en="Download">下载</span> <i class="fas fa-download ml-1"></i>
                             </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- 项目2：安全设备自动化运维平台 -->
-                <div class="bg-dark/90 rounded-xl overflow-hidden shadow-lg card-hover animate-fade-in">
+                <!-- 项目2 -->
+                <div class="card-base overflow-hidden">
                     <div class="h-48 overflow-hidden">
-                        <img src="https://picsum.photos/seed/secops/600/400" alt="安全设备自动化运维平台" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        <img src="https://picsum.photos/seed/secops/600/400" alt="安全设备自动化运维平台" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
-                        <div class="flex items-center mb-2">
-                            <span class="px-3 py-1 bg-secondary/20 text-secondary text-xs rounded-full" data-zh="运维平台" data-en="Ops Platform">运维平台</span>
+                        <div class="flex items-center mb-3">
+                            <span class="px-3 py-1 bg-secondary/10 text-secondary text-xs rounded-full" data-zh="运维平台" data-en="Ops Platform">运维平台</span>
                         </div>
-                        <h3 class="text-xl font-semibold mb-2 text-light" data-zh="安全设备自动化运维平台" data-en="Security Device Auto-Ops Platform">安全设备自动化运维平台</h3>
-                        <p class="text-grayLight mb-4 text-sm"
+                        <h3 class="text-xl font-semibold mb-3 text-light" data-zh="安全设备自动化运维平台" data-en="Security Device Auto-Ops Platform">安全设备自动化运维平台</h3>
+                        <p class="text-grayLight mb-5 text-sm"
                            data-zh="基于Python + Flask开发的安全设备统一运维平台，支持防火墙、IPS、WAF等设备的配置备份、策略下发、日志采集、故障告警等功能，提升运维效率。"
                            data-en="Developed based on Python + Flask, a unified operation platform for security devices. Supports configuration backup, policy distribution, log collection, and fault alerting for firewalls, IPS, WAF, etc., improving operation efficiency.">
                             基于Python + Flask开发的安全设备统一运维平台，支持防火墙、IPS、WAF等设备的配置备份、策略下发、日志采集、故障告警等功能，提升运维效率。
                         </p>
-                        <div class="space-y-2 mb-4">
+                        <div class="space-y-2 mb-5">
                             <div class="flex items-center text-sm">
                                 <i class="fas fa-check text-primary mr-2"></i>
                                 <span class="text-grayLight" data-zh="支持主流厂商设备API对接" data-en="Supports mainstream vendor API integration">支持主流厂商设备API对接</span>
@@ -510,38 +539,38 @@
                                 <span class="text-grayLight" data-zh="可视化运维 Dashboard" data-en="Visual ops dashboard">可视化运维 Dashboard</span>
                             </div>
                         </div>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-primary/20 text-primary text-xs rounded-full">Python</span>
-                            <span class="px-3 py-1 bg-secondary/20 text-secondary text-xs rounded-full">Flask</span>
-                            <span class="px-3 py-1 bg-gray-700 text-grayLight text-xs rounded-full">自动化运维</span>
+                        <div class="flex flex-wrap gap-2 mb-5">
+                            <span class="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">Python</span>
+                            <span class="px-3 py-1 bg-secondary/10 text-secondary text-xs rounded-full">Flask</span>
+                            <span class="px-3 py-1 bg-grayDark/50 text-grayLight text-xs rounded-full">自动化运维</span>
                         </div>
                         <div class="flex justify-between">
-                            <a href="https://github.com/wjqyg/sec-device-auto-ops" target="_blank" class="text-primary hover:text-primary/80 transition-colors text-sm">
+                            <a href="https://github.com/wjqyg/sec-device-auto-ops" target="_blank" class="text-primary text-sm flex items-center">
                                 <i class="fab fa-github mr-1"></i> <span data-zh="源码" data-en="Source Code">源码</span>
                             </a>
-                            <a href="#contact" class="text-secondary hover:text-secondary/80 transition-colors text-sm">
+                            <a href="#contact" class="text-secondary text-sm flex items-center">
                                 <span data-zh="演示" data-en="Demo">演示</span> <i class="fas fa-external-link ml-1"></i>
                             </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- 项目3：AI威胁检测系统 -->
-                <div class="bg-dark/90 rounded-xl overflow-hidden shadow-lg card-hover animate-fade-in">
+                <!-- 项目3 -->
+                <div class="card-base overflow-hidden">
                     <div class="h-48 overflow-hidden">
-                        <img src="https://picsum.photos/seed/ai-threat/600/400" alt="AI威胁检测系统" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        <img src="https://picsum.photos/seed/ai-threat/600/400" alt="AI威胁检测系统" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
-                        <div class="flex items-center mb-2">
-                            <span class="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full" data-zh="AI安全" data-en="AI Security">AI安全</span>
+                        <div class="flex items-center mb-3">
+                            <span class="px-3 py-1 bg-accent/10 text-accent text-xs rounded-full" data-zh="AI安全" data-en="AI Security">AI安全</span>
                         </div>
-                        <h3 class="text-xl font-semibold mb-2 text-light" data-zh="AI驱动的网络威胁检测系统" data-en="AI-Powered Network Threat Detection System">AI驱动的网络威胁检测系统</h3>
-                        <p class="text-grayLight mb-4 text-sm"
+                        <h3 class="text-xl font-semibold mb-3 text-light" data-zh="AI驱动的网络威胁检测系统" data-en="AI-Powered Network Threat Detection System">AI驱动的网络威胁检测系统</h3>
+                        <p class="text-grayLight mb-5 text-sm"
                            data-zh="基于机器学习算法构建的威胁检测系统，通过分析网络流量、日志数据，实现恶意代码、异常访问、暴力破解等威胁的实时检测与告警，误报率低于5%。"
                            data-en="Threat detection system built based on machine learning algorithms. By analyzing network traffic and log data, it realizes real-time detection and alerting of threats such as malware, abnormal access, and brute-force attacks, with a false positive rate below 5%.">
                             基于机器学习算法构建的威胁检测系统，通过分析网络流量、日志数据，实现恶意代码、异常访问、暴力破解等威胁的实时检测与告警，误报率低于5%。
                         </p>
-                        <div class="space-y-2 mb-4">
+                        <div class="space-y-2 mb-5">
                             <div class="flex items-center text-sm">
                                 <i class="fas fa-check text-primary mr-2"></i>
                                 <span class="text-grayLight" data-zh="支持10+种威胁类型识别" data-en="Supports 10+ threat type recognition">支持10+种威胁类型识别</span>
@@ -555,16 +584,16 @@
                                 <span class="text-grayLight" data-zh="支持日志导入与可视化分析" data-en="Supports log import & visual analysis">支持日志导入与可视化分析</span>
                             </div>
                         </div>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-primary/20 text-primary text-xs rounded-full">Python</span>
-                            <span class="px-3 py-1 bg-secondary/20 text-secondary text-xs rounded-full">Scikit-learn</span>
-                            <span class="px-3 py-1 bg-gray-700 text-grayLight text-xs rounded-full">威胁检测</span>
+                        <div class="flex flex-wrap gap-2 mb-5">
+                            <span class="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">Python</span>
+                            <span class="px-3 py-1 bg-secondary/10 text-secondary text-xs rounded-full">Scikit-learn</span>
+                            <span class="px-3 py-1 bg-grayDark/50 text-grayLight text-xs rounded-full">威胁检测</span>
                         </div>
                         <div class="flex justify-between">
-                            <a href="https://github.com/wjqyg/ai-threat-detection" target="_blank" class="text-primary hover:text-primary/80 transition-colors text-sm">
+                            <a href="https://github.com/wjqyg/ai-threat-detection" target="_blank" class="text-primary text-sm flex items-center">
                                 <i class="fab fa-github mr-1"></i> <span data-zh="源码" data-en="Source Code">源码</span>
                             </a>
-                            <a href="#contact" class="text-secondary hover:text-secondary/80 transition-colors text-sm">
+                            <a href="#contact" class="text-secondary text-sm flex items-center">
                                 <span data-zh="咨询" data-en="Inquire">咨询</span> <i class="fas fa-comment ml-1"></i>
                             </a>
                         </div>
@@ -574,112 +603,113 @@
         </div>
     </section>
 
-    <!-- 技术栈 -->
-    <section id="skills" class="py-20 relative z-10 bg-dark/80">
-        <div class="container mx-auto px-6 md:px-12">
-            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-center mb-16 animate-fade-in">
+    <!-- 技术栈（移除动画） -->
+    <section id="skills" class="section-padding relative z-10">
+        <div class="container mx-auto px-4 md:px-8 lg:px-12">
+            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-center mb-16">
                 <span data-zh="安全" data-en="Security">安全</span> 
-                <span class="text-gradient bg-gradient-to-r from-primary to-secondary" data-zh="技术栈" data-en="Tech Stack">技术栈</span>
+                <span class="text-gradient" data-zh="技术栈" data-en="Tech Stack">技术栈</span>
             </h2>
             <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
                 <!-- 安全技术 -->
-                <div class="animate-fade-in">
-                    <h3 class="text-xl font-semibold mb-6 text-primary" data-zh="安全核心技术" data-en="Core Security Skills">安全核心技术</h3>
+                <div>
+                    <h3 class="text-xl font-semibold mb-8 text-primary" data-zh="安全核心技术" data-en="Core Security Skills">安全核心技术</h3>
                     <div class="space-y-6">
                         <div>
                             <div class="flex justify-between mb-2">
-                                <span class="text-light" data-zh="渗透测试" data-en="Penetration Testing">渗透测试</span>
-                                <span class="text-primary">90%</span>
+                                <span class="text-light text-sm md:text-base" data-zh="渗透测试" data-en="Penetration Testing">渗透测试</span>
+                                <span class="text-primary text-sm md:text-base">90%</span>
                             </div>
                             <div class="skill-bar">
-                                <div class="skill-progress bg-primary" data-progress="90"></div>
+                                <div class="skill-progress bg-primary" style="width: 90%"></div>
                             </div>
                         </div>
                         <div>
                             <div class="flex justify-between mb-2">
-                                <span class="text-light" data-zh="云安全防护" data-en="Cloud Security">云安全防护</span>
-                                <span class="text-primary">85%</span>
+                                <span class="text-light text-sm md:text-base" data-zh="云安全防护" data-en="Cloud Security">云安全防护</span>
+                                <span class="text-primary text-sm md:text-base">85%</span>
                             </div>
                             <div class="skill-bar">
-                                <div class="skill-progress bg-primary" data-progress="85"></div>
+                                <div class="skill-progress bg-primary" style="width: 85%"></div>
                             </div>
                         </div>
                         <div>
                             <div class="flex justify-between mb-2">
-                                <span class="text-light" data-zh="等保合规" data-en="Security Compliance">等保合规</span>
-                                <span class="text-primary">88%</span>
+                                <span class="text-light text-sm md:text-base" data-zh="等保合规" data-en="Security Compliance">等保合规</span>
+                                <span class="text-primary text-sm md:text-base">88%</span>
                             </div>
                             <div class="skill-bar">
-                                <div class="skill-progress bg-primary" data-progress="88"></div>
+                                <div class="skill-progress bg-primary" style="width: 88%"></div>
                             </div>
                         </div>
                         <div>
                             <div class="flex justify-between mb-2">
-                                <span class="text-light" data-zh="应急响应" data-en="Incident Response">应急响应</span>
-                                <span class="text-primary">82%</span>
+                                <span class="text-light text-sm md:text-base" data-zh="应急响应" data-en="Incident Response">应急响应</span>
+                                <span class="text-primary text-sm md:text-base">82%</span>
                             </div>
                             <div class="skill-bar">
-                                <div class="skill-progress bg-primary" data-progress="82"></div>
+                                <div class="skill-progress bg-primary" style="width: 82%"></div>
                             </div>
                         </div>
                         <div>
                             <div class="flex justify-between mb-2">
-                                <span class="text-light" data-zh="Web3安全" data-en="Web3 Security">Web3安全</span>
-                                <span class="text-primary">78%</span>
+                                <span class="text-light text-sm md:text-base" data-zh="Web3安全" data-en="Web3 Security">Web3安全</span>
+                                <span class="text-primary text-sm md:text-base">78%</span>
                             </div>
                             <div class="skill-bar">
-                                <div class="skill-progress bg-primary" data-progress="78"></div>
+                                <div class="skill-progress bg-primary" style="width: 78%"></div>
                             </div>
                         </div>
                     </div>
                 </div>
+                
                 <!-- 工具与平台 -->
-                <div class="animate-fade-in">
-                    <h3 class="text-xl font-semibold mb-6 text-secondary" data-zh="工具与平台" data-en="Tools & Platforms">工具与平台</h3>
+                <div>
+                    <h3 class="text-xl font-semibold mb-8 text-secondary" data-zh="工具与平台" data-en="Tools & Platforms">工具与平台</h3>
                     <div class="space-y-6">
                         <div>
                             <div class="flex justify-between mb-2">
-                                <span class="text-light" data-zh="安全设备运维" data-en="Security Device Ops">安全设备运维</span>
-                                <span class="text-secondary">92%</span>
+                                <span class="text-light text-sm md:text-base" data-zh="安全设备运维" data-en="Security Device Ops">安全设备运维</span>
+                                <span class="text-secondary text-sm md:text-base">92%</span>
                             </div>
                             <div class="skill-bar">
-                                <div class="skill-progress bg-secondary" data-progress="92"></div>
+                                <div class="skill-progress bg-secondary" style="width: 92%"></div>
                             </div>
                         </div>
                         <div>
                             <div class="flex justify-between mb-2">
-                                <span class="text-light" data-zh="漏洞扫描工具" data-en="Vulnerability Scanners">漏洞扫描工具</span>
-                                <span class="text-secondary">88%</span>
+                                <span class="text-light text-sm md:text-base" data-zh="漏洞扫描工具" data-en="Vulnerability Scanners">漏洞扫描工具</span>
+                                <span class="text-secondary text-sm md:text-base">88%</span>
                             </div>
                             <div class="skill-bar">
-                                <div class="skill-progress bg-secondary" data-progress="88"></div>
+                                <div class="skill-progress bg-secondary" style="width: 88%"></div>
                             </div>
                         </div>
                         <div>
                             <div class="flex justify-between mb-2">
-                                <span class="text-light" data-zh="日志分析平台" data-en="Log Analysis Platforms">日志分析平台</span>
-                                <span class="text-secondary">80%</span>
+                                <span class="text-light text-sm md:text-base" data-zh="日志分析平台" data-en="Log Analysis Platforms">日志分析平台</span>
+                                <span class="text-secondary text-sm md:text-base">80%</span>
                             </div>
                             <div class="skill-bar">
-                                <div class="skill-progress bg-secondary" data-progress="80"></div>
+                                <div class="skill-progress bg-secondary" style="width: 80%"></div>
                             </div>
                         </div>
                         <div>
                             <div class="flex justify-between mb-2">
-                                <span class="text-light" data-zh="云平台" data-en="Cloud Platforms">云平台</span>
-                                <span class="text-secondary">85%</span>
+                                <span class="text-light text-sm md:text-base" data-zh="云平台" data-en="Cloud Platforms">云平台</span>
+                                <span class="text-secondary text-sm md:text-base">85%</span>
                             </div>
                             <div class="skill-bar">
-                                <div class="skill-progress bg-secondary" data-progress="85"></div>
+                                <div class="skill-progress bg-secondary" style="width: 85%"></div>
                             </div>
                         </div>
                         <div>
                             <div class="flex justify-between mb-2">
-                                <span class="text-light" data-zh="AI安全工具" data-en="AI Security Tools">AI安全工具</span>
-                                <span class="text-secondary">75%</span>
+                                <span class="text-light text-sm md:text-base" data-zh="AI安全工具" data-en="AI Security Tools">AI安全工具</span>
+                                <span class="text-secondary text-sm md:text-base">75%</span>
                             </div>
                             <div class="skill-bar">
-                                <div class="skill-progress bg-secondary" data-progress="75"></div>
+                                <div class="skill-progress bg-secondary" style="width: 75%"></div>
                             </div>
                         </div>
                     </div>
@@ -688,67 +718,68 @@
         </div>
     </section>
 
-    <!-- 联系我 -->
-    <section id="contact" class="py-20 relative z-10 bg-dark/80">
-        <div class="container mx-auto px-6 md:px-12">
-            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-center mb-16 animate-fade-in">
-                <span class="text-gradient bg-gradient-to-r from-primary to-secondary" data-zh="联系" data-en="Contact">联系</span> 
+    <!-- 联系我（移除动画） -->
+    <section id="contact" class="section-padding relative z-10 bg-darker/80">
+        <div class="container mx-auto px-4 md:px-8 lg:px-12">
+            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-center mb-16">
+                <span class="text-gradient" data-zh="联系" data-en="Contact">联系</span> 
                 <span data-zh="我" data-en="Me">我</span>
             </h2>
             <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-                <div class="animate-fade-in">
+                <div>
                     <h3 class="text-xl font-semibold mb-6 text-light" data-zh="安全合作与交流" data-en="Security Cooperation & Exchange">安全合作与交流</h3>
-                    <p class="text-grayLight mb-8"
+                    <p class="text-grayLight mb-8 leading-relaxed"
                        data-zh="无论你是需要安全咨询、项目合作、攻防演练支持，还是等保合规落地服务，都可以通过以下方式联系我，我会尽快回复并提供专业解决方案！"
                        data-en="Whether you need security consulting, project cooperation, cyber drill support, or Level-3 compliance services, feel free to contact me through the following channels. I will reply promptly and provide professional solutions!">
                         无论你是需要安全咨询、项目合作、攻防演练支持，还是等保合规落地服务，
                         都可以通过以下方式联系我，我会尽快回复并提供专业解决方案！
                     </p>
-                    <div class="space-y-4">
+                    <div class="space-y-6">
                         <div class="flex items-center">
-                            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
                                 <i class="fas fa-envelope text-primary text-xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-medium text-light" data-zh="邮箱" data-en="Email">邮箱</h4>
-                                <a href="mailto:6760088662@qq.com" class="text-grayLight hover:text-primary transition-colors">6760088662@qq.com</a>
+                                <h4 class="font-medium text-light mb-1" data-zh="邮箱" data-en="Email">邮箱</h4>
+                                <a href="mailto:6760088662@qq.com" class="text-grayLight">6760088662@qq.com</a>
                             </div>
                         </div>
                         <div class="flex items-center">
-                            <div class="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center mr-4">
+                            <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mr-4">
                                 <i class="fab fa-github text-secondary text-xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-medium text-light" data-zh="GitHub" data-en="GitHub">GitHub</h4>
-                                <a href="https://github.com/wjqyg" target="_blank" class="text-grayLight hover:text-primary transition-colors">github.com/wjqyg</a>
+                                <h4 class="font-medium text-light mb-1" data-zh="GitHub" data-en="GitHub">GitHub</h4>
+                                <a href="https://github.com/wjqyg" target="_blank" class="text-grayLight">github.com/wjqyg</a>
                             </div>
                         </div>
                         <div class="flex items-center">
-                            <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center mr-4">
+                            <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mr-4">
                                 <i class="fas fa-shield-alt text-accent text-xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-medium text-light" data-zh="服务范围" data-en="Service Scope">服务范围</h4>
+                                <h4 class="font-medium text-light mb-1" data-zh="服务范围" data-en="Service Scope">服务范围</h4>
                                 <p class="text-grayLight" data-zh="安全咨询、攻防演练、等保合规、安全建设" data-en="Security Consulting, Cyber Drill, Compliance, Security Construction">安全咨询、攻防演练、等保合规、安全建设</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="animate-fade-in">
-                    <form class="bg-dark/95 p-8 rounded-xl shadow-lg border border-primary/10">
-                        <div class="mb-4">
-                            <label class="block text-light mb-2" for="name" data-zh="姓名/单位" data-en="Name/Organization">姓名/单位</label>
-                            <input class="w-full px-4 py-2 bg-dark/70 border border-gray-600 rounded-lg focus:outline-none focus:border-primary transition-colors text-light" type="text" id="name" placeholder="请输入姓名或单位名称">
+                
+                <div>
+                    <form class="bg-dark/95 p-8 rounded-xl shadow-card border border-primary/10">
+                        <div class="mb-5">
+                            <label class="block text-light mb-2 text-sm md:text-base" for="name" data-zh="姓名/单位" data-en="Name/Organization">姓名/单位</label>
+                            <input class="w-full px-4 py-2.5 bg-darker border border-grayDark rounded-lg text-light" type="text" id="name" placeholder="请输入姓名或单位名称">
                         </div>
-                        <div class="mb-4">
-                            <label class="block text-light mb-2" for="email" data-zh="联系邮箱" data-en="Contact Email">联系邮箱</label>
-                            <input class="w-full px-4 py-2 bg-dark/70 border border-gray-600 rounded-lg focus:outline-none focus:border-primary transition-colors text-light" type="email" id="email" placeholder="请输入你的联系邮箱">
+                        <div class="mb-5">
+                            <label class="block text-light mb-2 text-sm md:text-base" for="email" data-zh="联系邮箱" data-en="Contact Email">联系邮箱</label>
+                            <input class="w-full px-4 py-2.5 bg-darker border border-grayDark rounded-lg text-light" type="email" id="email" placeholder="请输入你的联系邮箱">
                         </div>
                         <div class="mb-6">
-                            <label class="block text-light mb-2" for="message" data-zh="需求描述" data-en="Requirement Description">需求描述</label>
-                            <textarea class="w-full px-4 py-2 bg-dark/70 border border-gray-600 rounded-lg focus:outline-none focus:border-primary transition-colors h-32 resize-none text-light" id="message" placeholder="请描述你的安全需求（如攻防演练、等保合规、安全咨询等）"></textarea>
+                            <label class="block text-light mb-2 text-sm md:text-base" for="message" data-zh="需求描述" data-en="Requirement Description">需求描述</label>
+                            <textarea class="w-full px-4 py-2.5 bg-darker border border-grayDark rounded-lg h-32 resize-none text-light" id="message" placeholder="请描述你的安全需求（如攻防演练、等保合规、安全咨询等）"></textarea>
                         </div>
-                        <button type="submit" class="w-full py-3 bg-gradient-to-r from-primary to-secondary rounded-lg font-medium hover:opacity-90 transition-opacity transform hover:scale-[1.02] text-dark font-semibold" data-zh="提交需求" data-en="Submit Requirement">
+                        <button type="submit" class="w-full py-3 bg-gradient-to-r from-primary to-secondary rounded-lg font-medium text-dark font-semibold" data-zh="提交需求" data-en="Submit Requirement">
                             提交需求
                         </button>
                     </form>
@@ -758,38 +789,37 @@
     </section>
 
     <!-- 页脚 -->
-    <footer class="py-8 relative z-10 border-t border-gray-700 bg-dark/95">
-        <div class="container mx-auto px-6 md:px-12 text-center">
-            <p class="text-grayLight"
+    <footer class="py-8 relative z-10 border-t border-grayDark/30 bg-darker/95">
+        <div class="container mx-auto px-4 md:px-8 lg:px-12 text-center">
+            <p class="text-grayLight text-sm"
                data-zh="© 2025 SecOps. 基于 GitHub Pages 构建 | 网络安全运维与攻防演练专家"
                data-en="© 2025 SecOps. Built with GitHub Pages | Cybersecurity Ops & Cyber Drill Expert">
                 © 2025 SecOps. 基于 GitHub Pages 构建 | 网络安全运维与攻防演练专家
             </p>
             <div class="flex justify-center space-x-6 mt-4 text-xl">
-                <a href="https://github.com/wjqyg" target="_blank" class="text-primary/80 hover:text-primary transition-colors" title="GitHub">
+                <a href="https://github.com/wjqyg" target="_blank" class="text-primary/80" title="GitHub">
                     <i class="fab fa-github"></i>
                 </a>
-                <a href="mailto:6760088662@qq.com" class="text-primary/80 hover:text-primary transition-colors" title="Email">
+                <a href="mailto:6760088662@qq.com" class="text-primary/80" title="Email">
                     <i class="fas fa-envelope"></i>
                 </a>
-                <a href="#" target="_blank" class="text-primary/80 hover:text-primary transition-colors" title="Website">
+                <a href="#" target="_blank" class="text-primary/80" title="Website">
                     <i class="fas fa-globe"></i>
                 </a>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript -->
+    <!-- 简化的JS（仅保留语言切换核心功能） -->
     <script>
-        // 确保DOM加载完成后执行
         document.addEventListener('DOMContentLoaded', function() {
-            // 1. 中英文切换功能
+            // 1. 中英文切换功能（移除动画效果）
             const app = document.getElementById('app');
             const btnZh = document.getElementById('btn-zh');
             const btnEn = document.getElementById('btn-en');
             const langElements = document.querySelectorAll('[data-zh]');
             
-            // 初始化语言（优先本地存储，默认中文）
+            // 初始化语言
             let currentLang = localStorage.getItem('lang') || 'zh';
             updateLanguage(currentLang);
             
@@ -798,8 +828,10 @@
                 currentLang = 'zh';
                 localStorage.setItem('lang', 'zh');
                 updateLanguage('zh');
-                btnZh.classList.add('active');
-                btnEn.classList.remove('active');
+                btnZh.classList.add('border-primary', 'bg-primary/10', 'text-primary');
+                btnZh.classList.remove('border-grayMid');
+                btnEn.classList.remove('border-primary', 'bg-primary/10', 'text-primary');
+                btnEn.classList.add('border-grayMid');
             });
             
             // 切换英文
@@ -807,8 +839,10 @@
                 currentLang = 'en';
                 localStorage.setItem('lang', 'en');
                 updateLanguage('en');
-                btnEn.classList.add('active');
-                btnZh.classList.remove('active');
+                btnEn.classList.add('border-primary', 'bg-primary/10', 'text-primary');
+                btnEn.classList.remove('border-grayMid');
+                btnZh.classList.remove('border-primary', 'bg-primary/10', 'text-primary');
+                btnZh.classList.add('border-grayMid');
             });
             
             // 更新页面语言
@@ -833,136 +867,22 @@
                 document.title = document.querySelector('title').getAttribute(`data-${lang}`);
             }
 
-            // 2. 粒子背景（网络节点风格）
-            if (typeof particlesJS !== 'undefined') {
-                particlesJS('particles-js', {
-                    particles: {
-                        number: { value: 60, density: { enable: true, value_area: 1000 } },
-                        color: { value: ['#10b981', '#6366f1', '#ef4444', '#f1f5f9'] },
-                        shape: { type: ['circle', 'square'] },
-                        opacity: { value: 0.4, random: true },
-                        size: { value: 2, random: true, anim: { enable: true, speed: 1, size_min: 0.5 } },
-                        line_linked: {
-                            enable: true,
-                            distance: 150,
-                            color: '#10b981',
-                            opacity: 0.3,
-                            width: 1
-                        },
-                        move: {
-                            enable: true,
-                            speed: 1,
-                            direction: 'none',
-                            random: true,
-                            straight: false,
-                            out_mode: 'out',
-                            bounce: false
-                        }
-                    },
-                    interactivity: {
-                        detect_on: 'canvas',
-                        events: {
-                            onhover: { enable: true, mode: 'grab' },
-                            onclick: { enable: true, mode: 'push' },
-                            resize: true
-                        },
-                        modes: {
-                            grab: { distance: 150, line_linked: { opacity: 0.4 } },
-                            push: { particles_nb: 4 }
-                        }
-                    },
-                    retina_detect: true
-                });
-            }
-
-            // 3. 导航栏滚动效果
-            const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('bg-dark/98', 'bg-glass', 'shadow-lg');
-                    navbar.classList.remove('py-4');
-                    navbar.classList.add('py-3');
-                } else {
-                    navbar.classList.remove('bg-dark/98', 'bg-glass', 'shadow-lg');
-                    navbar.classList.add('py-4');
-                    navbar.classList.remove('py-3');
-                }
-            });
-
-            // 4. 移动端菜单
+            // 2. 移动端菜单切换（仅保留基础功能，移除动画）
             const menuBtn = document.getElementById('menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
-            menuBtn.addEventListener('click', () => {
+            
+            menuBtn.addEventListener('click', function() {
                 mobileMenu.classList.toggle('hidden');
+                // 切换图标
                 const icon = menuBtn.querySelector('i');
-                if (icon.classList.contains('fa-shield-alt')) {
-                    icon.classList.replace('fa-shield-alt', 'fa-times');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
                 } else {
-                    icon.classList.replace('fa-times', 'fa-shield-alt');
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
                 }
             });
-
-            // 5. 滚动动画（优化触发逻辑）
-            const fadeElements = document.querySelectorAll('.animate-fade-in');
-            
-            // 初始化首屏动画
-            fadeElements.forEach(el => {
-                if (el.closest('#home')) {
-                    el.classList.add('fade-in-active');
-                }
-            });
-            
-            // 滚动监听动画
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('fade-in-active');
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-            
-            fadeElements.forEach(el => observer.observe(el));
-
-            // 6. 技能进度条（优化触发时机）
-            const skillProgressBars = document.querySelectorAll('.skill-progress');
-            const skillObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const progress = entry.target.getAttribute('data-progress');
-                        entry.target.style.width = `${progress}%`;
-                    }
-                });
-            }, { threshold: 0.3 });
-            
-            skillProgressBars.forEach(bar => skillObserver.observe(bar));
-
-            // 7. 平滑滚动
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                        if (!mobileMenu.classList.contains('hidden')) {
-                            mobileMenu.classList.add('hidden');
-                            menuBtn.querySelector('i').classList.replace('fa-times', 'fa-shield-alt');
-                        }
-                    }
-                });
-            });
-
-            // 8. 强制触发动画（兜底）
-            setTimeout(() => {
-                fadeElements.forEach(el => el.classList.add('fade-in-active'));
-                skillProgressBars.forEach(bar => {
-                    const progress = bar.getAttribute('data-progress');
-                    bar.style.width = `${progress}%`;
-                });
-            }, 500);
         });
     </script>
 </body>
